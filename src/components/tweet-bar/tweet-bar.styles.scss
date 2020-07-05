@@ -1,0 +1,35 @@
+.tweet-bar {
+  background: white;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px;
+
+  .image-and-input {
+
+    .image {
+      img {
+        max-width: 50%;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
+    .input {
+      background: #F2F6F9;
+      border: none;
+      resize: none;
+
+      &:placeholder {
+        color: rgb(160, 160, 160);
+      }
+    }
+
+    .white-button {
+      display: block;
+      margin-right: 10px;
+      margin-left: auto;
+      margin-top: 10px;
+    }
+  }
+}

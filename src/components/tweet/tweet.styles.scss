@@ -1,0 +1,60 @@
+.tweet {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  margin-bottom: 20px;
+
+  p {
+    font-size: 15px;
+  }
+
+  .image {
+    img {
+      max-width: 50%;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .tweet--main {
+    .tweet-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      p {
+        margin: 0;
+      }
+
+      .author {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .at-author {
+        margin-left: 20px;
+        color: rgb(160, 160, 160);
+      }
+
+      img {
+        max-width: 30px;
+        display: block;
+        justify-self: flex-end;
+        margin-left: auto;
+        cursor: pointer;
+      }
+    }
+
+    .like-rt {
+      display: flex;
+      justify-content: space-between;
+      width: 30%;
+
+      img {
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
