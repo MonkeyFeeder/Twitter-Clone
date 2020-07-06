@@ -1,0 +1,16 @@
+.user-item {
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+  img {
+    max-width: 50px;
+  }
+
+  .user-info {
+    padding-left: 30px;
+  }
+}

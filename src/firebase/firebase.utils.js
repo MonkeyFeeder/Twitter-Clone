@@ -25,34 +25,72 @@ export const generateUserDocument = async (userAuth, additionalData) => {
   const snapshot = await userRef.get();
 
   if(!snapshot.exists) {
-    const { email } = userAuth;
+    const { email, displayName } = userAuth;
     try {
       await userRef.set({
+        displayName,
         email,
         ...additionalData
-      })
+      });
     } catch (error) {
       console.log('Error creating user document', error)
-      return error;
     }
   }
 
   return userRef;
 }
 
-export const createUserWithEmailAndPasswordHandler = async (email, password) => {
-  try {
-    const {user} = await auth.createUserWithEmailAndPassword(email, password);
-    generateUserDocument(user);
-  } catch(error) {
-    console.log('Error signing up with email and password', error);
-  }
+// export const createUserWithEmailAndPasswordHandler = async (email, password) => {
+//   try {
+//     const {user} = await auth.createUserWithEmailAndPassword(email, password);
+//     generateUserDocument(user);
+//   } catch(error) {
+//     console.log('Error signing up with email and password', error);
+//   }
+// }
+
+export const sendTweet = async (tweet, userId, displayName) => {
+  firestore.collection('users').doc(userId).collection('tweets').doc().set({
+    text: tweet,
+    tweetedAt: new Date(),
+    author: userId,
+    authorDisplayName: displayName
+  })
+  .then(resp => resp)
+  .catch(error => error);
 }
 
-export const signInWithEmailAndPasswordHandler = (email, password) => {
-  try {
-    auth.signInWithEmailAndPassword(email, password);
-  } catch(error) {
-    console.log('Error signing in', error);
+export const getFollowedUsers = async (userId) => {
+  if(!userId) return;
+
+  const userFollows = await firestore.collection('users').doc(userId).collection('follows').get();
+  return userFollows;
+}
+
+export const getTweetsByUser = async (userId) => {
+  if(!userId) return;
+
+  const tweets = await firestore.collection('users').doc(userId).collection('tweets').get();
+  return tweets;
+}
+
+export const listAllUsers = async () => {
+  const userSnapshot = await firestore.collection('users').get();
+
+  return userSnapshot;
+}
+
+export const followUser = async (followerId, followedId) => {
+  if (followerId === followedId) return;
+
+  if(followedId) {
+    firestore.collection('users').doc(followedId).collection('followedBy').doc(followerId).set({
+      followedBy: followerId,
+      followedSince: new Date()
+    })
+
+    firestore.collection('users').doc(followerId).collection('follows').doc(followedId).set({
+      follows: followedId
+    })
   }
 }

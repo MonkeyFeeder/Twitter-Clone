@@ -8,13 +8,14 @@ import Form from 'react-bootstrap/Form';
 
 import WhiteButton from '../../components/white-button/white-button.component';
 
-import {createUserWithEmailAndPasswordHandler, signInWithEmailAndPasswordHandler} from '../../firebase/firebase.utils';
+import {auth, generateUserDocument} from '../../firebase/firebase.utils';
 
 import './sign-in.styles.scss';
 
 const SignIn = () => {
   const history = useHistory();
 
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,28 +26,45 @@ const SignIn = () => {
       setEmail( value );
     } else if (name === 'password') {
       setPassword( value );
+    } else if (name === 'display') {
+      setDisplayName( value );
     }
   }
 
-  const onSignUpHandler = (event) => {
+  const onSignUpHandler = async event => {
     event.preventDefault();
 
-    createUserWithEmailAndPasswordHandler(email, password);
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email, 
+        password
+      );
 
+      await generateUserDocument(user, { displayName });
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    setDisplayName({displayName: ''});
     setEmail({email: ''});
     setPassword({password: ''});
     document.querySelector('form').reset();
   }
 
-  const onSignInHandler = (event) => {
+  const onSignInHandler = async event => {
     event.preventDefault();
 
-    signInWithEmailAndPasswordHandler(email, password);
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setEmail({email: ''});
+      setPassword({password: ''});
+      document.querySelector('form').reset();
 
-    setEmail({email: ''});
-    setPassword({password: ''});
-    document.querySelector('form').reset();
-    history.push('/');
+      history.push('/');
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   return(
@@ -54,6 +72,11 @@ const SignIn = () => {
       <Row>
         <Col xs={6}>
           <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Display Name</Form.Label>
+              <Form.Control type="text" name="display" placeholder="Enter displayed name" onChange={(event) => onChangeHandler(event)} />
+            </Form.Group>
+
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" name="email" placeholder="Enter email" onChange={(event) => onChangeHandler(event)} />
