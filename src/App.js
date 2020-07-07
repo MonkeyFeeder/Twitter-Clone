@@ -20,7 +20,8 @@ class App extends React.Component {
     super();
 
     this.state = {
-      currentUser: null
+      currentUser: null,
+      isLoggedIn: false
     }
   }
 
@@ -31,10 +32,13 @@ class App extends React.Component {
       if (userAuth) {
         const userRef = await generateUserDocument(userAuth);
         userRef.onSnapshot(snapShot => {
-          this.setState({currentUser: {
-            id: userAuth.uid,
-            ...snapShot.data()
-          }});
+          this.setState({
+            currentUser: {
+              id: userAuth.uid,
+              ...snapShot.data()
+            },
+            isLoggedIn: true,
+          });
         });
       }
 
@@ -43,6 +47,7 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
+    this.setState({isLoggedIn: false});
     this.unsubscribeFromAuth();
   }
 
@@ -55,7 +60,13 @@ class App extends React.Component {
               <Sidebar />
               <Switch>
                 <Route exact path="/">
-                  <Homepage />
+                  {
+                    this.state.isLoggedIn ? (
+                      <Homepage />
+                    ) : (
+                      <SignIn />
+                    )
+                  }
                 </Route>
                 <Route exact path="/sign-in">
                   <SignIn />
