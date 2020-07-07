@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3fdbe226e2c01b5aa43f15b51bfb13a7",
+    "revision": "ac8ad654accbc936c6af4aa95c543dd9",
     "url": "/Twitter-Clone/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Twitter-Clone/static/css/2.af3c1da9.chunk.css"
   },
   {
-    "revision": "eef0a61bd2fd63756130",
+    "revision": "4f8055019aa02c3a172b",
     "url": "/Twitter-Clone/static/css/main.ca0f6b23.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Twitter-Clone/static/js/2.7228b31e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "eef0a61bd2fd63756130",
-    "url": "/Twitter-Clone/static/js/main.e581fa0e.chunk.js"
+    "revision": "4f8055019aa02c3a172b",
+    "url": "/Twitter-Clone/static/js/main.96183418.chunk.js"
   },
   {
     "revision": "00e0db3a17847f8bfda0",

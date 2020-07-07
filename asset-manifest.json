@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Twitter-Clone/static/css/main.ca0f6b23.chunk.css",
-    "main.js": "/Twitter-Clone/static/js/main.e581fa0e.chunk.js",
-    "main.js.map": "/Twitter-Clone/static/js/main.e581fa0e.chunk.js.map",
+    "main.js": "/Twitter-Clone/static/js/main.96183418.chunk.js",
+    "main.js.map": "/Twitter-Clone/static/js/main.96183418.chunk.js.map",
     "runtime-main.js": "/Twitter-Clone/static/js/runtime-main.098b0fcc.js",
     "runtime-main.js.map": "/Twitter-Clone/static/js/runtime-main.098b0fcc.js.map",
     "static/css/2.af3c1da9.chunk.css": "/Twitter-Clone/static/css/2.af3c1da9.chunk.css",
     "static/js/2.7228b31e.chunk.js": "/Twitter-Clone/static/js/2.7228b31e.chunk.js",
     "static/js/2.7228b31e.chunk.js.map": "/Twitter-Clone/static/js/2.7228b31e.chunk.js.map",
     "index.html": "/Twitter-Clone/index.html",
-    "precache-manifest.a01b45ba90a44dcb422ce599183847bb.js": "/Twitter-Clone/precache-manifest.a01b45ba90a44dcb422ce599183847bb.js",
+    "precache-manifest.390963759e36627187b9820033989e58.js": "/Twitter-Clone/precache-manifest.390963759e36627187b9820033989e58.js",
     "service-worker.js": "/Twitter-Clone/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/Twitter-Clone/static/css/2.af3c1da9.chunk.css.map",
     "static/css/main.ca0f6b23.chunk.css.map": "/Twitter-Clone/static/css/main.ca0f6b23.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.af3c1da9.chunk.css",
     "static/js/2.7228b31e.chunk.js",
     "static/css/main.ca0f6b23.chunk.css",
-    "static/js/main.e581fa0e.chunk.js"
+    "static/js/main.96183418.chunk.js"
   ]
 }
