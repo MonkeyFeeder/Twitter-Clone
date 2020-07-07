@@ -42,7 +42,10 @@ class App extends React.Component {
         });
       }
 
-      this.setState({ currentUser: userAuth });
+      this.setState({ 
+        currentUser: userAuth,
+        isLoggedIn: false
+      });
     });
   }
 
@@ -58,26 +61,26 @@ class App extends React.Component {
           <Router>
             <Container>
               <Sidebar />
-              <Switch>
-                <Route exact path="/">
-                  {
-                    this.state.isLoggedIn ? (
+              {
+                this.state.isLoggedIn ? (
+                  <Switch>
+                    <Route exact path="/">
                       <Homepage />
-                    ) : (
+                    </Route>
+                    <Route exact path="/sign-in">
                       <SignIn />
-                    )
-                  }
-                </Route>
-                <Route exact path="/sign-in">
+                    </Route>
+                    <Route exact path="/all-users">
+                      <AllUsers />
+                    </Route>
+                    <Route exact path="/user/:id">
+                      <UserProfile />
+                    </Route>
+                  </Switch>
+                ) : (
                   <SignIn />
-                </Route>
-                <Route exact path="/all-users">
-                  <AllUsers />
-                </Route>
-                <Route exact path="/user/:id">
-                  <UserProfile />
-                </Route>
-              </Switch>
+                )
+              }
             </Container>
           </Router>
         </div>
