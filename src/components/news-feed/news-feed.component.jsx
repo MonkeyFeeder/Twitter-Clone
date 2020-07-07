@@ -10,8 +10,10 @@ import './news-feed.styles.scss';
 const NewsFeed = () => {
   const CurrentUser = useContext(CurrentUserContext);
   const [tweets, setTweets] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const feedTheFeed = async (id) => {
+    setIsLoading(true);
     const followedUsers = await getFollowedUsers(id);
 
     if(followedUsers) {
@@ -28,27 +30,32 @@ const NewsFeed = () => {
               tweetText
             ])
           })
+
+          setIsLoading(false);
         }
       })
+
     }
   }
 
   useEffect(() => {
     if(!CurrentUser) return;
-
+    
     if(CurrentUser.id || CurrentUser.uid) {
       feedTheFeed(CurrentUser.id);
     }
   }, [CurrentUser]);
 
   return(
-    <div className="news-feed">
+    <div className="news-feed container">
       {
-        tweets.length !== 0 ? (
-          tweets.map(tweet => (
-            <Tweet {...tweet} />
-          ))
-        ) : null
+        isLoading ? (
+          <div className="loader">Loading</div>
+        ) : (
+          tweets.length !== 0 ? (
+            tweets.map(tweet => <Tweet userId={CurrentUser.id} {...tweet} key={CurrentUser.id} />)
+          ) : null
+        )
       }
     </div>
   )

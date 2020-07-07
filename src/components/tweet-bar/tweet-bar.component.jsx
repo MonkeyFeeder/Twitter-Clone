@@ -15,7 +15,7 @@ import CurrentUserContext from '../../context/current-user/current-user.context'
 
 // import StarIcon from '../../assets/star.png';
 // import ImageIcon from '../../assets/image.png';
-import UserIcon from '../../assets/user.png';
+import { Person } from 'react-bootstrap-icons';
 
 const TweetBar = () => {
   const currentUser = useContext(CurrentUserContext);
@@ -31,7 +31,7 @@ const TweetBar = () => {
       <TitleBar title="Home" />
       <Row className="image-and-input">
           <Col sm={2} className="image">
-            <img src={UserIcon} alt="That's me"/>
+            <Person size={70} color="#1da1f2" />
           </Col>
           <Col sm={10}>
             <InputGroup>

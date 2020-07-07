@@ -19,3 +19,12 @@ body h2 {
 body h3 {
   font-size: 28px;
 }
+
+body a {
+  color: inherit;
+}
+
+body a:hover {
+  text-decoration: none;
+  color: #1da1f2;
+}

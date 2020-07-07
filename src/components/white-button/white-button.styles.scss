@@ -14,4 +14,10 @@
     color: white;
     transition: .1s all linear;
   }
+
+  &.followed {
+    color: white;
+    background: #1da1f2;
+    transition: .1s all linear;
+  }
 }

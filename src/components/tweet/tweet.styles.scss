@@ -9,12 +9,9 @@
   }
 
   .image {
-    img {
-      max-width: 50%;
-      border-radius: 50%;
-      display: block;
-      margin: 0 auto;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .tweet--main {
@@ -22,6 +19,11 @@
       display: flex;
       align-items: center;
       margin-bottom: 10px;
+
+      .tweet-name {
+        display: flex;
+        flex-direction: column;
+      }
 
       p {
         margin: 0;
@@ -33,16 +35,35 @@
       }
 
       .at-author {
-        margin-left: 20px;
+        margin-left: 0px;
         color: rgb(160, 160, 160);
       }
 
-      img {
-        max-width: 30px;
+      .tweet-menu {
+        position: relative;
         display: block;
-        justify-self: flex-end;
         margin-left: auto;
         cursor: pointer;
+
+        .tweet-options {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translate(-50%);
+          background: white;
+          width: 180px;
+          height: auto;
+          box-shadow: 0 2px 4px 0px rgba(0, 0, 0, .6);
+          text-align: center;
+
+          p {
+            text-transform: uppercase;
+
+            &:hover {
+              color: #1da1f2;
+            }
+          }
+        }
       }
     }
 
@@ -54,6 +75,27 @@
       img {
         width: 20px;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .tweet {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 20px;
+
+    .tweet--main {
+      .tweet-info {  
+        .tweet-name {
+          display: flex;
+          flex-direction: row;
+          .at-author {
+            margin-left: 20px;
+          }
+        }
       }
     }
   }

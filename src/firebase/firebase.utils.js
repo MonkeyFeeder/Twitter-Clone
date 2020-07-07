@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-export const generateUserDocument = async (userAuth, additionalData) => {
+export const generateUserDocument = async (userAuth, additionalData, bio) => {
   if(!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -26,6 +26,7 @@ export const generateUserDocument = async (userAuth, additionalData) => {
 
   if(!snapshot.exists) {
     const { email, displayName } = userAuth;
+
     try {
       await userRef.set({
         displayName,
@@ -80,6 +81,23 @@ export const listAllUsers = async () => {
   return userSnapshot;
 }
 
+export const doesUserFollow = async (currentUserId, followedId) => {
+  if(!currentUserId || !followedId) return;
+
+  const userFollowsSnapshot = await firestore.collection('users').doc(currentUserId).collection('follows').get();
+
+  let followedUsers = [];
+
+  userFollowsSnapshot.docs.forEach(doc => {
+    const followedUser = doc.data().follows;
+
+    followedUsers.push(followedUser);    
+  })
+  
+  const matchingUser = followedUsers.find(followedUser => followedUser === followedId);
+  return matchingUser;
+}
+
 export const followUser = async (followerId, followedId) => {
   if (followerId === followedId) return;
 
@@ -92,5 +110,32 @@ export const followUser = async (followerId, followedId) => {
     firestore.collection('users').doc(followerId).collection('follows').doc(followedId).set({
       follows: followedId
     })
+
+    return true;
+  } else {
+    return false;
   }
+}
+
+export const unfollowUser = async (followerId, followedId) => {
+  if (followerId === followedId) return;
+  
+
+  if(followedId) {
+    firestore.collection('users').doc(followedId).collection('followedBy').doc(followerId).delete()
+
+    firestore.collection('users').doc(followerId).collection('follows').doc(followedId).delete()
+
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export const getUserProfile = async (userId) => {
+  if(!userId) return;
+
+  const userSnapshot = await firestore.collection('users').doc(userId).get();
+
+  return userSnapshot.data();
 }

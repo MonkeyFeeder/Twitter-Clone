@@ -7,6 +7,7 @@ import Sidebar from './components/sidebar/sidebar.component';
 import Homepage from './pages/homepage/homepage.component';
 import AllUsers from './pages/all-users/all-users.component';
 import SignIn from './pages/sign-in/sign-in.component';
+import UserProfile from './pages/user-profile/user-profile.component';
 
 import { auth, generateUserDocument } from './firebase/firebase.utils';
 
@@ -61,6 +62,9 @@ class App extends React.Component {
                 </Route>
                 <Route exact path="/all-users">
                   <AllUsers />
+                </Route>
+                <Route exact path="/user/:id">
+                  <UserProfile />
                 </Route>
               </Switch>
             </Container>

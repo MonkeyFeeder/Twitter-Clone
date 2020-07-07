@@ -5,20 +5,11 @@ import './sidebar.styles.scss';
 
 import { auth } from '../../firebase/firebase.utils';
 
-import HomeIcon from '../../assets/home.png';
 import TwitterIcon from '../../assets/twitter.png';
-import UserIcon from '../../assets/user.png';
-import WorldIcon from '../../assets/internet.png';
+import { Person, Globe } from 'react-bootstrap-icons';
 
 import CurrentUserContext from '../../context/current-user/current-user.context';
 
-
-const signInStyle = {
-  backgroundImage: `url('${UserIcon}')`,
-  backgroundSize: 'cover',
-  width: 40,
-  height: 40,
-};
 
 const Sidebar = () => {
   const currentUser = useContext(CurrentUserContext);
@@ -29,33 +20,35 @@ const Sidebar = () => {
       <Link to="/">
         <img src={TwitterIcon} alt="Go home"/>
       </Link>
-      <Link to="/">
-        <img src={HomeIcon} alt="Go to the newsfeed"/>
-      </Link>
       <Link to="/all-users">
-        <img src={WorldIcon} alt="Go to the list of all users"/>
+        <Globe className="globe-icon" size={40} color="#1da1f2" />
       </Link>
-      <div className="sign-in-sign-up" style={signInStyle} onClick={() => setHidden(!hidden)}>
-        {
-          !hidden ? (
-            <div className="sub-menu">
-              {
-                currentUser ? (
-                  <div className="option" onClick={() => auth.signOut()}>
-                    SIGN OUT
-                  </div>
-                ) : (
-                  <Link className="option" to="/sign-in">
-                    SIGN IN
-                  </Link>
-                )
-              }
-            </div>
-          ) : (
-            null
-          )
-        }
-        
+      <div className="sign-in-sign-up" onClick={() => setHidden(!hidden)}>
+        <Person size={40} color="#1da1f2" />
+          {
+            !hidden ? (
+              <div className="sub-menu">
+                {
+                  currentUser ? (
+                    <div>
+                      <div className="option" onClick={() => auth.signOut()}>
+                        SIGN OUT
+                      </div>
+                      <Link to={`/user/${currentUser.id}`}>
+                        Profile
+                      </Link>
+                    </div>
+                  ) : (
+                    <Link className="option" to="/sign-in">
+                      SIGN IN
+                    </Link>
+                  )
+                }
+              </div>
+            ) : (
+              null
+            )
+          }
       </div>
     </nav>
   );

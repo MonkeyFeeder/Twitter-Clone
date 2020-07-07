@@ -4,15 +4,29 @@
   display: flex;
   align-items: center;
   padding: 20px;
+  text-transform: uppercase;
+
+  > a {
+    color: inherit;
+    margin-right: 20px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   
   img {
     max-width: 40px;
-    margin-right: 20px;
   }
 
   .sign-in-sign-up {
     position: relative;
     cursor: pointer;
+
+    .person {
+      width: 40px;
+      height: 40px;
+      fill: #1da1f2;
+    }
 
     .sub-menu {
       width: 100px;
@@ -30,6 +44,10 @@
 
       .option {
         color: inherit;
+
+        &:hover {
+          color: #1da1f2;
+        }
       }
     }
   }

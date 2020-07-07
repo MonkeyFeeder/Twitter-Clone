@@ -1,6 +1,12 @@
 .sign-in {
-  background-color: white;
-  border-radius: 10px;
   margin-top: 20px;
   padding: 20px;
+
+  .row {
+    .form-col {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+    }
+  }
 }

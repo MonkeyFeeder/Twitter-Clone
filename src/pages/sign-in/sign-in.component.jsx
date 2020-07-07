@@ -70,7 +70,8 @@ const SignIn = () => {
   return(
     <Container className="sign-in">
       <Row>
-        <Col xs={6}>
+        <Col xs={5} className="form-col">
+          <h3>Sign up</h3>
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Display Name</Form.Label>
@@ -91,7 +92,8 @@ const SignIn = () => {
             </WhiteButton>
           </Form>
         </Col>
-        <Col xs={6}>
+        <Col xs={{span: 5, offset: 2}} className="form-col">
+          <h3>Sign in</h3>
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

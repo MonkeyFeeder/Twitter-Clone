@@ -1,45 +1,47 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './all-users.styles.scss';
 
 import ItemUser from '../../components/item-user/item-user.component';
+import TitleBar from '../../components/title-bar/title-bar.component';
 
 import {listAllUsers} from '../../firebase/firebase.utils';
-import CurrentUserContext from '../../context/current-user/current-user.context';
 
-class AllUsers extends React.Component {
-  constructor() {
-    super();
+const AllUsers = () => {  
+  const [users, setUsers] = useState([]);
 
-    this.state = {
-      users: [],
+  const listUsers = async () => {
+    const allUsersUnformat = await listAllUsers();
+    if(allUsersUnformat.docs) {
+      allUsersUnformat.docs.forEach(doc => {
+        setUsers(oldUsers => [
+          ...oldUsers,
+          {
+            data: doc.data(),
+            id: doc.id
+          }
+        ])
+      })
     }
   }
 
-  
-  async componentDidMount() {
-    const users = await listAllUsers();
-    this.setState({users: users.docs});
+  useEffect(() => {
+    listUsers();
+  }, [setUsers])
 
-    // const followedUsers = getFollowedUsers(currentUser.id);
-  }
-
-  render() {
-    return(
-      <div className="user-list">
-        {
-          this.state.users ? (
-            this.state.users.map((user, index) => (
-                <ItemUser key={index} id={user.id} userData={user.data()} />
-              )
+  return(
+    <div className="user-list">
+      <TitleBar title="All users" />
+      {
+        users ? (
+          users.map((user) => (
+              <ItemUser key={user.id} id={user.id} userData={user.data} />
             )
-          ) : null
-        }
-      </div>
-    )
-  }
+          )
+        ) : null
+      }
+    </div>
+  )
 }
-
-AllUsers.contextType = CurrentUserContext;
 
 export default AllUsers;

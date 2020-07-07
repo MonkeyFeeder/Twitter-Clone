@@ -1,20 +1,27 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
+import { Link } from 'react-router-dom';
 
 import './tweet.styles.scss';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import CurrentUserContext from '../../context/current-user/current-user.context';
+
+import { Person, ThreeDots } from 'react-bootstrap-icons';
+// import ChatIcon from '../../assets/chat.png';
+// import RetweetIcon from '../../assets/retweet.png';
+// import HeartIcon from '../../assets/heart.png';
+
+const Tweet = ( tweet, userId ) => {
+  const currentUser = useContext(CurrentUserContext);
+  const { text, tweetedAt, authorDisplayName, author } = tweet;
+  const [hidden, setHidden] = useState(true);
 
 
-import UserIcon from '../../assets/user.png';
-import MoreIcon from '../../assets/more.png';
-import ChatIcon from '../../assets/chat.png';
-import RetweetIcon from '../../assets/retweet.png';
-import HeartIcon from '../../assets/heart.png';
 
-const Tweet = ( tweet ) => {
-  const { text, tweetedAt, authorDisplayName } = tweet;
+
+  // All the date processing
   const currentDate = new Date().getTime() / 1000;
   const differenceTime = currentDate - tweetedAt.seconds
   let displayedDate = '';
@@ -31,28 +38,47 @@ const Tweet = ( tweet ) => {
     const days = Math.round(differenceTime / 86400);
     displayedDate = `${days}d ago`;
   }
+
   return(
     <Row className="tweet">
       <Col sm={2} className="image">
-        <img src={UserIcon} alt="Itsa me Mario" />
+        <Person size={60} color="#1da1f2"/>
       </Col>
       <Col sm={10} className="tweet--main">
         <div className="tweet-info">
-          <p className="author">{authorDisplayName}</p>
-          <p className="at-author">@{authorDisplayName} - {displayedDate}</p>
-          <img src={MoreIcon} alt="More for this tweet" />
+          <div className="tweet-name">
+            <Link to={`user/${author}`}>
+              <p className="author">{authorDisplayName}</p>
+            </Link>
+            <p className="at-author">@{authorDisplayName} - {displayedDate}</p>
+          </div>
+          <div className="tweet-menu">
+            <ThreeDots size={30} color="#1da1f2" onClick={() => setHidden(!hidden)} />
+            {
+              !hidden ? (
+                <div className="tweet-options">
+                  {
+                    author === currentUser.id ? (
+                      <p>Delete tweet</p>
+                    ) : null
+                  }
+                  <p><Link to={`user/${author}`}>Go to user profile</Link></p>
+                </div>
+              ) : null
+            }
+          </div>          
         </div>
         <div className="tweet-content">
           <p>{text}</p>
         </div>
         <div className="like-rt">
-          <img src={ChatIcon} alt="Comment"/>
-          <img src={RetweetIcon} alt="Retweet"/>
-          <img src={HeartIcon} alt="Like"/>
+          {/* <img src={ChatIcon} alt="Comment"/> */}
+          {/* <img src={RetweetIcon} alt="Retweet"/> */}
+          {/* <img src={HeartIcon} alt="Like"/> */}
         </div>
       </Col>
     </Row>
   )
 }
 
-export default Tweet
+export default Tweet;
